@@ -24,7 +24,7 @@ class ChemicalCalculator(QMainWindow):
     def __init__(self):
         super().__init__()
         self.db_manager = DatabaseManager()
-        self.elements_list = []  # Список элементов в форме [(элемент, количество), ...]
+        self.elements_list = []
         self.current_formula_name = ""
         self.init_ui()
         self.load_common_compounds()
@@ -34,7 +34,6 @@ class ChemicalCalculator(QMainWindow):
         self.setWindowTitle("Химический калькулятор молярной массы")
         self.setGeometry(100, 100, 1200, 800)
 
-        # Установка иконки приложения
         self.setWindowIcon(self.create_icon())
 
         central_widget = QWidget()
@@ -48,15 +47,15 @@ class ChemicalCalculator(QMainWindow):
 
         # Вкладка калькулятора
         self.calculator_tab = self.create_calculator_tab()
-        self.tab_widget.addTab(self.calculator_tab, "🧪 Калькулятор")
+        self.tab_widget.addTab(self.calculator_tab, "Калькулятор")
 
         # Вкладка базы элементов
         self.elements_tab = ElementsBrowser(self.db_manager, self)
-        self.tab_widget.addTab(self.elements_tab, "📚 База элементов")
+        self.tab_widget.addTab(self.elements_tab, "База элементов")
 
         # Вкладка управления соединениями
         self.compounds_tab = CompoundManager(self.db_manager, self)
-        self.tab_widget.addTab(self.compounds_tab, "💾 Мои соединения")
+        self.tab_widget.addTab(self.compounds_tab, "Мои соединения")
 
         main_layout.addWidget(self.tab_widget)
 
@@ -85,7 +84,7 @@ class ChemicalCalculator(QMainWindow):
         menubar = self.menuBar()
 
         # Меню Файл
-        file_menu = menubar.addMenu('📁 Файл')
+        file_menu = menubar.addMenu('Файл')
 
         new_action = QAction('Новое соединение', self)
         new_action.setShortcut('Ctrl+N')
@@ -115,7 +114,7 @@ class ChemicalCalculator(QMainWindow):
         file_menu.addAction(exit_action)
 
         # Меню Справка
-        help_menu = menubar.addMenu('❓ Справка')
+        help_menu = menubar.addMenu('Справка')
 
         about_action = QAction('О программе', self)
         about_action.triggered.connect(self.show_about)
@@ -127,19 +126,19 @@ class ChemicalCalculator(QMainWindow):
         self.addToolBar(toolbar)
 
         # Кнопка расчета
-        calculate_action = QAction('🧮 Рассчитать', self)
+        calculate_action = QAction('Рассчитать', self)
         calculate_action.triggered.connect(self.calculate_molar_mass)
         toolbar.addAction(calculate_action)
 
         toolbar.addSeparator()
 
         # Кнопка очистки
-        clear_action = QAction('🗑️ Очистить', self)
+        clear_action = QAction('Очистить', self)
         clear_action.triggered.connect(self.clear_elements_list)
         toolbar.addAction(clear_action)
 
         # Кнопка добавления элемента
-        add_element_action = QAction('➕ Элемент', self)
+        add_element_action = QAction('Элемент', self)
         add_element_action.triggered.connect(self.show_add_element_dialog)
         toolbar.addAction(add_element_action)
 
@@ -219,7 +218,7 @@ class ChemicalCalculator(QMainWindow):
         input_group.setLayout(input_layout)
 
         # Группа распространенных соединений
-        common_group = QGroupBox("📋 Распространенные соединения")
+        common_group = QGroupBox("Распространенные соединения")
         common_layout = QVBoxLayout()
 
         self.common_compounds_list = QListWidget()
@@ -229,7 +228,7 @@ class ChemicalCalculator(QMainWindow):
         common_group.setLayout(common_layout)
 
         # Группа для управления
-        control_group = QGroupBox("⚙️ Управление")
+        control_group = QGroupBox("Управление")
         control_layout = QVBoxLayout()
 
         # Поле для имени соединения
@@ -241,7 +240,7 @@ class ChemicalCalculator(QMainWindow):
         control_layout.addLayout(name_layout)
 
         # Кнопка расчета
-        self.calculate_button = QPushButton("🧮 Рассчитать молярную массу")
+        self.calculate_button = QPushButton("Рассчитать молярную массу")
         self.calculate_button.clicked.connect(self.calculate_molar_mass)
         self.calculate_button.setEnabled(False)
         self.calculate_button.setStyleSheet("""
@@ -263,11 +262,11 @@ class ChemicalCalculator(QMainWindow):
         """)
 
         # Кнопка очистки
-        self.clear_button = QPushButton("🗑️ Очистить список")
+        self.clear_button = QPushButton("Очистить список")
         self.clear_button.clicked.connect(self.clear_elements_list)
 
         # Кнопка добавления нового элемента в БД
-        self.add_new_element_button = QPushButton("➕ Добавить новый элемент в базу")
+        self.add_new_element_button = QPushButton("Добавить новый элемент в базу")
         self.add_new_element_button.clicked.connect(self.show_add_element_dialog)
 
         control_layout.addWidget(self.calculate_button)
@@ -291,7 +290,7 @@ class ChemicalCalculator(QMainWindow):
         layout = QVBoxLayout()
 
         # Заголовок
-        title_label = QLabel("🧬 Состав вещества")
+        title_label = QLabel("Сoстав вещества")
         title_label.setFont(QFont("Arial", 14, QFont.Bold))
         title_label.setStyleSheet("color: #2c3e50; padding: 10px;")
 
@@ -303,7 +302,7 @@ class ChemicalCalculator(QMainWindow):
         self.elements_table.setSelectionBehavior(QTableWidget.SelectRows)
 
         # Поле для отображения текущей формулы
-        formula_group = QGroupBox("📝 Текущая формула")
+        formula_group = QGroupBox("Текущая формула")
         formula_layout = QVBoxLayout()
         self.formula_display = QTextEdit()
         self.formula_display.setMaximumHeight(100)
@@ -323,7 +322,7 @@ class ChemicalCalculator(QMainWindow):
         formula_group.setLayout(formula_layout)
 
         # Информация о соединении
-        info_group = QGroupBox("📊 Информация")
+        info_group = QGroupBox("Информация")
         info_layout = QVBoxLayout()
 
         self.info_label = QLabel("Добавьте элементы для расчета")
@@ -338,7 +337,7 @@ class ChemicalCalculator(QMainWindow):
         info_group.setLayout(info_layout)
 
         # Кнопка удаления выбранного элемента
-        self.remove_button = QPushButton("❌ Удалить выбранный элемент")
+        self.remove_button = QPushButton("Удалить выбранный элемент")
         self.remove_button.clicked.connect(self.remove_selected_element)
         self.remove_button.setStyleSheet("""
             QPushButton {
@@ -693,4 +692,5 @@ def main():
 
 
 if __name__ == "__main__":
+
     main()
