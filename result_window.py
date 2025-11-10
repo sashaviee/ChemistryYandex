@@ -31,7 +31,7 @@ class ResultWindow(QDialog):
         self.compound_info.setAlignment(Qt.AlignCenter)
 
         # Формула
-        formula_group = QGroupBox("🧪 Формула соединения")
+        formula_group = QGroupBox("Формула соединения")
         formula_layout = QVBoxLayout()
         self.formula_display = QTextEdit()
         self.formula_display.setReadOnly(True)
@@ -52,7 +52,7 @@ class ResultWindow(QDialog):
         formula_group.setLayout(formula_layout)
 
         # Результат
-        result_group = QGroupBox("📊 Результат расчета")
+        result_group = QGroupBox("Результат расчета")
         result_layout = QVBoxLayout()
         self.mass_label = QLabel()
         self.mass_label.setFont(QFont("Arial", 18, QFont.Bold))
@@ -96,7 +96,7 @@ class ResultWindow(QDialog):
         # Кнопки
         button_layout = QHBoxLayout()
 
-        self.save_button = QPushButton("💾 Сохранить результат")
+        self.save_button = QPushButton("Сохранить результат")
         self.save_button.clicked.connect(self.save_results)
         self.save_button.setStyleSheet("""
             QPushButton {
@@ -112,7 +112,7 @@ class ResultWindow(QDialog):
             }
         """)
 
-        self.close_button = QPushButton("❌ Закрыть")
+        self.close_button = QPushButton("Закрыть")
         self.close_button.clicked.connect(self.close)
         self.close_button.setStyleSheet("""
             QPushButton {
@@ -193,4 +193,5 @@ class ResultWindow(QDialog):
                 from PyQt5.QtWidgets import QMessageBox
                 QMessageBox.information(self, "Успех", "Результаты успешно сохранены!")
             except Exception as e:
+
                 QMessageBox.warning(self, "Ошибка", f"Не удалось сохранить результаты: {str(e)}")
