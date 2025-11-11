@@ -1,9 +1,8 @@
-import subprocess
 
-def build_executable():
-    spec_content = """
 # -*- mode: python ; coding: utf-8 -*-
+
 block_cipher = None
+
 a = Analysis(
     ['main_window.py'],
     pathex=[],
@@ -21,7 +20,9 @@ a = Analysis(
     cipher=block_cipher,
     noarchive=False,
 )
+
 pyz = PYZ(a.pure, a.zipped_data, cipher=block_cipher)
+
 exe = EXE(
     pyz,
     a.scripts,
@@ -44,17 +45,3 @@ exe = EXE(
     entitlements_file=None,
     icon='chemical_icon.ico',
 )
-"""
-    with open('chemical_calculator.spec', 'w', encoding='utf-8') as f:
-        f.write(spec_content)
-    try:
-        subprocess.run(['pyinstaller', 'chemical_calculator.spec', '--onefile', '--windowed'], check=True)
-        print("Сборка завершена успешно!")
-        print("Исполняемый файл находится в папке 'dist'")
-    except subprocess.CalledProcessError as e:
-        print(f"Ошибка при сборке: {e}")
-    except FileNotFoundError:
-        print("PyInstaller не найден. Установите его: pip install pyinstaller")
-
-if __name__ == "__main__":
-    build_executable()
